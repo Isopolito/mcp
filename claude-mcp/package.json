@@ -1,0 +1,25 @@
+{
+  "name": "claude-code-bridge-server",
+  "version": "1.0.0",
+  "description": "MCP Bridge Server enabling Gemini CLI to consult with Claude Code for brainstorming and collaboration",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc && npm run make-executable",
+    "make-executable": "esbuild dist/index.js --bundle --platform=node --format=cjs --outfile=dist/claude-bridge && sed -i '1i#!/usr/bin/env node' dist/claude-bridge && chmod +x dist/claude-bridge"
+  },
+  "bin": {
+    "claude-bridge": "./dist/claude-bridge"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.0.0",
+    "zod": "^3.22.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "esbuild": "^0.19.12",
+    "typescript": "^5.0.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

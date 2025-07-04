@@ -65,28 +65,36 @@ To set up this multi-agent environment, follow these steps:
 
     Ensure your Gemini CLI is configured to use both `claude-bridge` and `codex-bridge` as MCP servers. The setup scripts within each bridge's directory should assist with this configuration.
 
-## 🎮 Usage Examples
+    Additionally, this repository includes [`GEMINI_COLLAB.md`](./GEMINI_COLLAB.md), an example of how to configure the Gemini CLI to adopt a new persona, specifically an "AI Project Coordinator" who orchestrates a team of AI engineers. To enable this collaborative mode, add `GEMINI_COLLAB.md` to your Gemini CLI configuration's `contextFileName` array, as shown below:
 
-Once configured, you can interact with the multi-agent system via Gemini CLI. Here are some high-level examples:
-
-*   **Architectural Brainstorming:**
-    ```
-    Use brainstorm_with_claude to help me design a scalable microservices architecture for a new e-commerce platform.
-    ```
-
-*   **Code Generation:**
-    ```
-    Use codex to scaffold a new user authentication module in Python, including basic CRUD operations and unit tests.
-    ```
-
-*   **Code Refactoring:**
-    ```
-    Use codex to refactor the `legacy_api_handler.js` file to use modern async/await syntax and improve readability.
-    ```
-
-*   **Security Analysis:**
-    ```
-    Use get_claude_code_analysis to review the security vulnerabilities in the `src/auth/` directory.
+    ```json
+    {
+      "theme": "Atom One",
+      "selectedAuthType": "oauth-personal",
+      "SystemPrompts": {
+        "Software Engineer": "You are an experienced, world class, software engineer."
+      },
+      "contextFileName": [
+        "GEMINI.md",
+        "GEMINI_COLLAB.md",
+        "GEMINI_EXAMPLES.md"
+      ],
+      "mcpServers": {
+        "claude-bridge": {
+          "command": "/home/ash/bin/claude-bridge",
+          "args": [],
+          "env": {},
+          "timeout": 280000
+        },
+        "codex-bridge": {
+          "command": "/home/ash/bin/codex-bridge",
+          "args": [],
+          "env": {},
+          "timeout": 280000
+        }
+      },
+      "preferredEditor": "vim"
+    }
     ```
 
 ## 📂 Project Structure

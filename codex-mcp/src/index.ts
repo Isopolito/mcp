@@ -14,6 +14,8 @@ import { CallToolRequestSchema, ListToolsRequestSchema } from "@modelcontextprot
 import { z } from "zod";
 import { spawn } from "child_process";
 
+const version = "1.0.1"
+
 // Tool schemas
 const BrainstormSchema = z.object({
   problem_description: z.string().describe("Detailed description of the technical challenge or problem"),
@@ -35,9 +37,10 @@ const PlanningSchema = z.object({
 });
 
 // Execute Codex CLI command
+// Execute Codex CLI command
 async function executeCodex(prompt: string): Promise<string> {
   return new Promise((resolve, reject) => {
-    const codex = spawn("codex", ["-q", prompt], {
+    const codex = spawn("codex", ["exec", prompt], {
       stdio: ["pipe", "pipe", "pipe"],
     });
 
@@ -64,12 +67,13 @@ async function executeCodex(prompt: string): Promise<string> {
       reject(new Error(`Failed to execute Codex CLI: ${error.message}`));
     });
   });
+
 }
 
 const server = new Server(
   {
     name: "codex-bridge",
-    version: "1.0.0",
+    version: version
   },
   {
     capabilities: {
@@ -282,7 +286,7 @@ async function main() {
   }
 
   if (args.includes('--version')) {
-    console.log('1.0.0');
+    console.log(version);
     return;
   }
 

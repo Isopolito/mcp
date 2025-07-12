@@ -3,7 +3,7 @@
 # Integration Test Script for Claude Code Bridge Server
 # This script tests the complete integration between Gemini CLI and Claude Code
 
-set -e
+set -ex
 
 # Color codes for output
 RED='\033[0;31m'
@@ -91,7 +91,7 @@ test_bridge_startup() {
     print_status "Testing bridge server startup..."
     
     # Start bridge server in background and test if it responds
-    timeout 5s claude-bridge > /dev/null 2>&1 &
+    timeout 5s claude-bridge > /tmp/claude-bridge.log 2>&1 &
     local pid=$!
     
     sleep 2
